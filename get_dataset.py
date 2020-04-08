@@ -27,8 +27,8 @@ def read_mat(filename):
 #  将mat中的数据读取后进行打乱
 def read_data(file_path):
     # 读取x，y的mat文件
-    dataX = read_mat('{}/x.mat'.format(file_path))
-    dataY = read_mat('{}/y.mat'.format(file_path))
+    dataX = read_mat('{}/xe.mat'.format(file_path))
+    dataY = read_mat('{}/ye.mat'.format(file_path))
     print('data shape is {}'.format(dataX.shape))
 
     # 利用shuffle()打乱样本顺序

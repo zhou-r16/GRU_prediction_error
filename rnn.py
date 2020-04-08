@@ -2,7 +2,8 @@
 from matplotlib import pyplot as plt
 import tensorflow as tf
 from keras.models import Sequential
-from keras.layers import CuDNNGRU as GRU
+# from keras.layers import CuDNNGRU as GRU
+from keras.layers import GRU as GRU
 # from keras.layers import GRU
 from keras.optimizers import Adam
 from keras.initializers import Orthogonal
@@ -15,21 +16,24 @@ class GRU_model:
         self.config = config
 
         #  set gpu:
-        gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.3, allow_growth=True)
-        gpu_config = tf.ConfigProto(gpu_options=gpu_options, allow_soft_placement=True)
+        # gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.3, allow_growth=True)
+        # gpu_config = tf.ConfigProto(gpu_options=gpu_options, allow_soft_placement=True)
 
         #  定义模型和GRU网络结构
         #  gru structure
         self.model = Sequential()
         init = Orthogonal()
+        # self.model.add(GRU(200, input_shape=(None, config['dim']), return_sequences=True,
+        #                    kernel_initializer=init))
+        # # self.model.add(GRU(64, return_sequences=True, kernel_initializer=init))
+        # self.model.add(GRU(config['out_dim'], return_sequences=True, kernel_initializer=init))
         self.model.add(GRU(200, input_shape=(None, config['dim']), return_sequences=True,
-                           kernel_initializer=init))
+                           kernel_initializer=init, reset_after=True))
         # self.model.add(GRU(64, return_sequences=True, kernel_initializer=init))
-        self.model.add(GRU(config['out_dim'], return_sequences=True, kernel_initializer=init))
-
+        self.model.add(GRU(config['out_dim'], return_sequences=True, kernel_initializer=init, reset_after=True))
         adam = Adam(lr=config['learning_rate'], clipnorm=1.0)
         #  set session
-        set_session(tf.Session(config=gpu_config))
+        # set_session(tf.Session(config=gpu_config))
 
         self.model.compile(loss='mse', optimizer=adam, metrics=['mae'])
 

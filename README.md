@@ -1,4 +1,4 @@
-# GRU_prediction
+# GRU_prediction_error
 
 ## fast_data
 * 以npy格式存储的数据

@@ -20,12 +20,13 @@ def gen_config(args):
     # changing part:
     config['time_step'] = 1  # predict in segment
     config['c_step'] = 1  # continuous time step
-    config['training_epochs'] = 1500
+    config['training_epochs'] = 2000
     config['batch_size'] = 32
-    config['learning_rate'] = 1e-4
+    config['learning_rate'] = 5e-5
 
     # 数据归一化所需要用到的系数，提前求得数据集中X,V,A,J以及tracking error的最大值，代入其中
-    config['scales'] = [20.1, 793.0, 1.69e4, 2.89e5, 2.11e4]  # 前4个分别对应X,V,A,J，最后一个对应error
+    # config['scales'] = [20.1, 793.0, 1.69e4, 2.89e5, 2.11e4]  # 前4个分别对应X,V,A,J，最后一个对应error
+    config['scales'] = [2.21e4, 4.40e5, 4.24e6, 1.06e7, 4.11e5]  # 前4个分别对应X,V,A,J，最后一个对应error
     # GRU的输入量长度为12
     # Input(t0)= (X(t0-1),V(t0-1),A(t0-1),J(t0-1),X(t0),V(t0),A(t0),J(t0),X(t0+1),V(t0+1),A(t0+1),J(t0+1))
     config['dim'] = 4 * (config['c_step'] * 2 + config['time_step'])
@@ -46,7 +47,7 @@ def gen_config(args):
         config['restore'] = True
 
     # the name of saved model
-    config['model_name'] = '{}_model_zr_c{}_{}'.format(config['plant'], config['c_step'], config['network'])
+    config['model_name'] = '{}_model_error_zr_c{}_{}'.format(config['plant'], config['c_step'], config['network'])
     return config
 
 
@@ -61,6 +62,11 @@ def run(config):
         mytrainer.test()
     elif config['mode'] == 'implement':
         mytrainer.implement()
+        # for num in range(101, 121):
+        #     config['case_num'] = num
+        #     mytrainer = trainer.Trainer(config)
+        #     mytrainer.implement()
+        #     print('Predicting im_data{}.mat'.format(num))
 
 
 if __name__ == '__main__':
@@ -68,9 +74,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='config for plant & network & mode')
     parser.add_argument('-p', '--plant', default='pid')
     parser.add_argument('-n', '--network', default='rnn')
-    parser.add_argument('-m', '--mode', default='implement', choices=['train', 'test', 'implement'])
+    parser.add_argument('-m', '--mode', default='test', choices=['train', 'test', 'implement'])
     parser.add_argument('-c', '--cont', default=True, choices=[True, False])
-    parser.add_argument('-i', '--imple', default=2)
+    parser.add_argument('-i', '--imple', default=101)
     args = parser.parse_args()
     config = gen_config(args)
     run(config)

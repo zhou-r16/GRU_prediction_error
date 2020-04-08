@@ -63,7 +63,9 @@ class Trainer:
     # 验证集进行测试
     def test(self):
         #  drawing examination
-        self.nn.validate(self.val_dataX, self.val_dataY)
+        x_test = np.load('fast_data/valX.npy')
+        y_test = np.load('fast_data/valY.npy')
+        self.nn.validate(x_test, y_test)
 
     # 利用网络进行预测
     def implement(self):

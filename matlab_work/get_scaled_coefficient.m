@@ -1,5 +1,6 @@
-load('data/train/x.mat');
-load('data/train/y.mat');
+clear
+load('data/train/xe.mat');
+load('data/train/ye.mat');
 
 max_X = 0;
 max_V = 0;

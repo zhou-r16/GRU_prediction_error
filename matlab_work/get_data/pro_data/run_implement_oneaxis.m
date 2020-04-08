@@ -2,12 +2,12 @@
 clc
 clear
 %% 1. read data:
-case_num = 2;
-Start = case_num;
-End = case_num;
+case_num = 101;
+Start = 101;
+End = 101;
 filenames = cell((End-Start+1), 1);
 for i=1:1:(End-Start+1)
-filenames(i) = {sprintf('./from_raw_data/for_implement/%d.mat', i+Start-1)};
+filenames(i) = {sprintf('./from_raw_data/for_implement2/%d.mat', i+Start-1)};
 end
 
 % neccessary datas:
@@ -24,13 +24,15 @@ filenum = size(filenames, 1);
 %% 2. process data
 % notice: state has been processed in matlab
 % make it fit in different size:
-POSX = [];
-VX = [];
-E = [];
-AX = [];
-JX = [];
+
 
 for i = 1:1:filenum
+    POSX = [];
+    VX = [];
+    E = [];
+    AX = [];
+    JX = [];
+    
     filename = char(filenames(i));
     [posx_, vx_, ax_, jx_, e_, fs_] = read_data_implement_oneaxis(filename);
     
@@ -63,39 +65,41 @@ for i = 1:1:filenum
         E = [E, e_];
 
 %     end
-end
 
 %% 3. save: clip and downsample:
 % change into x and y
-x1 = POSX';
-x2 = VX;
-x3 = AX;
-x4 = JX;
+    x1 = POSX';
+    x2 = VX;
+    x3 = AX;
+    x4 = JX;
 
-y = E';
+    y = E';
 
 
 % yb = Ed;
-x1 = down_sample(x1, 10);
-x2 = down_sample(x2, 10);
-x3 = down_sample(x3, 10);
-x4 = down_sample(x4, 10);
+    x1 = down_sample(x1, 10);
+    x2 = down_sample(x2, 10);
+    x3 = down_sample(x3, 10);
+    x4 = down_sample(x4, 10);
 
 % y = down_sample(y, 10);
 
-x(:,:,1) = x1'; %px
+    x(:,:,1) = x1'; %px
 % x(:,:,2) = x2'; %vx
 % x(:,:,3) = x3';  %ax
 % x(:,:,4) = x4';  %jx
 
-for i=1:1:length(x(1,1,:))
-    max__(i)=1/max(abs(x(:,:,i)));
-end
+    for ii=1:1:length(x(1,1,:))
+        max__(ii)=1/max(abs(x(:,:,ii)));
+    end
 
-y=y';
+    y=y';
 % 1/max(abs(y))
-file_im_data = {sprintf('../../data/implement/case%d/im_data.mat', case_num)};
-save(file_im_data{1}, 'x');
+%     file_im_data = {sprintf('../../data/implement/for_2nd_train/im_data%d.mat', i+Start-1)};
+    file_im_data = {sprintf('../../data/implement/case%d/im_data.mat', i+Start-1)};
+    save(file_im_data{1}, 'x');
 % save('../x.mat', 'x');
 % save('../y.mat', 'y');
 % save('../train/yb.mat', 'yb');
+end
+
