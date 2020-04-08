@@ -60,12 +60,12 @@ def run(config):
     elif config['mode'] == 'test':
         mytrainer.test()
     elif config['mode'] == 'implement':
-        # mytrainer.implement()
-        for num in range(1, 26):
-            config['case_num'] = num
-            mytrainer = trainer.Trainer(config)
-            mytrainer.implement()
-            print('Predicting im_data{}.mat'.format(num))
+        mytrainer.implement()
+        # for num in range(1, 26):
+        #     config['case_num'] = num
+        #     mytrainer = trainer.Trainer(config)
+        #     mytrainer.implement()
+        #     print('Predicting im_data{}.mat'.format(num))
 
 
 if __name__ == '__main__':
@@ -73,9 +73,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='config for plant & network & mode')
     parser.add_argument('-p', '--plant', default='pid')
     parser.add_argument('-n', '--network', default='rnn')
-    parser.add_argument('-m', '--mode', default='train', choices=['train', 'test', 'implement'])
+    parser.add_argument('-m', '--mode', default='implement', choices=['train', 'test', 'implement'])
     parser.add_argument('-c', '--cont', default=True, choices=[True, False])
-    parser.add_argument('-i', '--imple', default=1)
+    parser.add_argument('-i', '--imple', default=2)
     args = parser.parse_args()
     config = gen_config(args)
     run(config)

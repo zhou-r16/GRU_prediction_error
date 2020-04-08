@@ -1,8 +1,8 @@
 % curve.m:用于生成reference，供simulink仿真模型运行
 fs = 2000;
-T = 70;
+T = 80;
 t = 0:1/fs:T;
-sigx = 0.0103.*sin(0.6.*pi.*t)+0.0096.*sin(pi.*t)-0.0114.*sin(2.*pi.*t);
+sigx = 0.0103.*sin(0.8.*pi.*t)+0.0096.*sin(pi.*t)-0.0114.*sin(2.*pi.*t);
 figure(1)
 plot(t,sigx);
 
