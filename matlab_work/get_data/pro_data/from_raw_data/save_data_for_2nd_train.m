@@ -1,12 +1,12 @@
 clear
 load('reference.mat');
-Start = 20;
-% End = 20;
+Start = 25;
+% End = 25;
 
 fs = 2000;
 
 for i = Start:1:Start
-    comp_name = string(sprintf('../../../data/implement/for_2nd_train/comp_data%d.mat',i+100));
+    comp_name = string(sprintf('../../../data/implement/1st_implement_for_2nd_train/comp_data%d.mat',i));
     load(comp_name);
     sigx = yc;
 %     a = reference(i,:)';
@@ -56,3 +56,6 @@ for i = Start:1:Start
     compensation = [t' yc'];
     
 end
+
+% 运行Simulink后在命令行执行
+% rec1.ex = error_output.Data;save(string(sprintf('for_2nd_train/%d',Start)),'rec1');

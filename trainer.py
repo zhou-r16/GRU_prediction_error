@@ -71,7 +71,7 @@ class Trainer:
     def implement(self):
         #  imdataX is the data come from target structure:
         #  imdatax should be (N, time_step, 12) 比如(1,1000,12)
-        im_dataX = scio.loadmat('matlab_work/data/implement/case{}/im_data.mat'.format(self.config['case_num']))['x']
+        im_dataX = scio.loadmat('matlab_work/data/implement/1st_implement_for_2nd_train/im_data{}.mat'.format(self.config['case_num']))['x']
 
         d_im_dataX = dataset.process_x_for_implementation(im_dataX, self.config)  # d_im_dataX为处理后的数据，shape为(1,seg_length - 6,12)
         predict_Y = self.nn.implement(d_im_dataX)
@@ -88,5 +88,5 @@ class Trainer:
         predict_Y = np.concatenate([predict_Y, np.zeros([z_num, num_diff, z_c])], axis=1)
 
         #  reshape into standard shape
-        scio.savemat('matlab_work/data/implement/case{}/pre_data.mat'.format(self.config['case_num']), {'yp': predict_Y})
+        scio.savemat('matlab_work/data/implement/1st_implement_for_2nd_train/pre_data{}.mat'.format(self.config['case_num']), {'yp': predict_Y})
         return predict_Y

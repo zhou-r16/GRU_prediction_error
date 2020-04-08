@@ -2,8 +2,8 @@ clear all
 close all
 
 N = 3; % 边缘光滑阶次
-% T = 80;  % 运行时间(for train）
-T = 60;  % 运行时间（for implement）
+T = 80;  % 运行时间(for train）
+% T = 60;  % 运行时间（for implement）
 A = 0.025; % 运行幅值
 fs = 2000;
 
@@ -54,16 +54,16 @@ a = sigx;
 % compena3 = zeros(180000,1);
 
 %% （for train）Ts=5s,T=80s,T的前后各有一段Ts长的0曲线，因此总时间90s %
-% t = 0:1/fs:90;
-% t = t';
-% data_in = [t a]; % Simulink系统的输入
-% compensation = [t zeros(180001,1)];% Simulink系统的补偿
-
-%% （for implement）Ts=5s,T=80s,T的前后各有一段Ts长的0曲线，因此总时间90s 
-t = 0:1/fs:70;
+t = 0:1/fs:90;
 t = t';
 data_in = [t a]; % Simulink系统的输入
-compensation = [t zeros(140001,1)];% Simulink系统的补偿
+compensation = [t zeros(180001,1)];% Simulink系统的补偿
+
+%% （for implement）Ts=5s,T=80s,T的前后各有一段Ts长的0曲线，因此总时间90s 
+% t = 0:1/fs:70;
+% t = t';
+% data_in = [t a]; % Simulink系统的输入
+% compensation = [t zeros(140001,1)];% Simulink系统的补偿
 
 
 % x = a';

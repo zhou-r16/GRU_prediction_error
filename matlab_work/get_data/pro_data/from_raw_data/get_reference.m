@@ -1,10 +1,10 @@
 clear
 
 Start = 1;
-End = 20;
+End = 25;
 
 for i = Start:1:End
-    filename_char = sprintf('from_raw/%d.mat', i);
+    filename_char = sprintf('for_1st_train/%d.mat', i);
     filename(i) = string(filename_char);
     load(filename(i));
     rec(i) = rec1;

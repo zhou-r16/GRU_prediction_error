@@ -2,12 +2,12 @@
 clc
 clear
 %% 1. read data:
-case_num = 101;
-Start = 101;
-End = 101;
+% case_num = 1;
+Start = 1;
+End = 25;
 filenames = cell((End-Start+1), 1);
 for i=1:1:(End-Start+1)
-filenames(i) = {sprintf('./from_raw_data/for_implement2/%d.mat', i+Start-1)};
+filenames(i) = {sprintf('./from_raw_data/for_1st_train/%d.mat', i+Start-1)};
 end
 
 % neccessary datas:
@@ -95,8 +95,8 @@ for i = 1:1:filenum
 
     y=y';
 % 1/max(abs(y))
-%     file_im_data = {sprintf('../../data/implement/for_2nd_train/im_data%d.mat', i+Start-1)};
-    file_im_data = {sprintf('../../data/implement/case%d/im_data.mat', i+Start-1)};
+    file_im_data = {sprintf('../../data/implement/1st_implement_for_2nd_train/im_data%d.mat', i+Start-1)};
+%     file_im_data = {sprintf('../../data/implement/case%d/im_data.mat', i+Start-1)};
     save(file_im_data{1}, 'x');
 % save('../x.mat', 'x');
 % save('../y.mat', 'y');
